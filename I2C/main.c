@@ -78,7 +78,9 @@ int main(void)
   uint16_t RtcSlaveAddress = 0b1101000; /* 0x68 */
   uint16_t ResetPointer = 0x00;
   uint8_t Seconds = 0x00;
-  uint8_t TransmitBuffer[] = {0x30, 0x59, 0x19, 0x6, 0x01, 0x08, 0x22};
+  uint8_t Minutes = 0x01;
+  uint8_t Hours = 0x02;
+  uint8_t TransmitBuffer[] = {0x30, 0x03, 0x12, 0x04, 0x06, 0x10, 0x22};
   uint8_t ReceiveBuffer [8];
 
   // HAL_I2C_Mem_Write(&hi2c4, RtcSlaveAddress<<1,&ResetPointer, 1, &TransmitBuffer, 7, 0xFFFFFFFF);
@@ -91,20 +93,20 @@ int main(void)
   HAL_I2C_Mem_Write(&hi2c4, RtcSlaveAddress<<1, ResetPointer, 1, TransmitBuffer, 7, 0xFFFFFFFF);
   while (1)
   {
-	  HAL_I2C_Master_Transmit(&hi2c4, RtcSlaveAddress<<1, &Seconds, 1, 0xFFFFFFFF); /* Ubicar el apuntador */
-	  HAL_I2C_Master_Receive(&hi2c4, RtcSlaveAddress<<1, ReceiveBuffer, 7, 0xFFFFFFFF); /* */
-	  printf("Seconds are: %x\n\r", ReceiveBuffer[0]);
-	  printf("Minutes are: %x\n\r", ReceiveBuffer[1]);
-	  printf("Hours are: %x\n\r", ReceiveBuffer[2]);
-	  printf("Day is: %x\n\r", ReceiveBuffer[3]);
-	  printf("Date is: %x\n\r", ReceiveBuffer[4]);
-	  printf("Month is: %x\n\r", ReceiveBuffer[5]);
-	  printf("Year is: %x\n\r", ReceiveBuffer[6]);
+//	  HAL_I2C_Master_Transmit(&hi2c4, RtcSlaveAddress<<1, &Seconds, 1, 0xFFFFFFFF); /* Ubicar el apuntador */
+//	  HAL_I2C_Master_Receive(&hi2c4, RtcSlaveAddress<<1, ReceiveBuffer, 7, 0xFFFFFFFF); /* */
+//	  printf("Seconds are: %x, ", ReceiveBuffer[0]);
+//	  printf("Minutes are: %x, ", ReceiveBuffer[1]);
+//	  printf("Hours are: %x, ", ReceiveBuffer[2]);
+//	  printf("Day is: %x\, ", ReceiveBuffer[3]);
+//	  printf("Date is: %x, ", ReceiveBuffer[4]);
+//	  printf("Month is: %x, ", ReceiveBuffer[5]);
+//	  printf("Year is: %x\n\r", ReceiveBuffer[6]);
 
-//	  HAL_I2C_Master_Transmit(&hi2c4, RtcSlaveAddress<<1, &Minutes, 1, 0xFFFFFFFF); /* Ubicar el apuntador */
-//	  HAL_I2C_Master_Receive(&hi2c4, RtcSlaveAddress<<1, ReceiveBuffer, 1, 0xFFFFFFFF); /* */
-//	  printf("Minutes are: %x\n\r", ReceiveBuffer[0]);
-//
+	  HAL_I2C_Master_Transmit(&hi2c4, RtcSlaveAddress<<1, &Minutes, 1, 0xFFFFFFFF); /* Ubicar el apuntador */
+	  HAL_I2C_Master_Receive(&hi2c4, RtcSlaveAddress<<1, ReceiveBuffer, 1, 0xFFFFFFFF); /* */
+	  printf("Minutes are: %x\n\r", ReceiveBuffer[0]);
+
 //	  HAL_I2C_Master_Transmit(&hi2c4, RtcSlaveAddress<<1, &Hours, 1, 0xFFFFFFFF); /* Ubicar el apuntador */
 //	  HAL_I2C_Master_Receive(&hi2c4, RtcSlaveAddress<<1, ReceiveBuffer, 1, 0xFFFFFFFF); /* */
 //	  printf("Hours are: %x\n\r", ReceiveBuffer[0]);
